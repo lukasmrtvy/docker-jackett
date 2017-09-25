@@ -4,7 +4,7 @@ ENV UID 1000
 ENV USER htpc
 ENV GROUP htpc
 
-JACKETT_VERSION 0.8.225
+ENV JACKETT_VERSION 0.8.225
 
 RUN addgroup -S ${GROUP} && adduser -D -S -u ${UID} ${USER} ${GROUP} && \
     apk add --no-cache --update curl openssl libcurl tar bzip2 mono --update-cache --repository http://alpine.gliderlabs.com/alpine/edge/testing/ --allow-untrusted  && \

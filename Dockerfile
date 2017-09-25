@@ -1,10 +1,14 @@
 FROM alpine:latest
 
-ENV UID="1100"
+ENV UID 1000
+ENV USER htpc
+ENV GROUP htpc
 
-RUN adduser -D -u ${UID} jackett && \
+JACKETT_VERSION 0.8.225
+
+RUN addgroup -S ${GROUP} && adduser -D -S -u ${UID} ${USER} ${GROUP} && \
     apk add --no-cache --update curl openssl libcurl tar bzip2 mono --update-cache --repository http://alpine.gliderlabs.com/alpine/edge/testing/ --allow-untrusted  && \
-    mkdir -p /opt/jackett && VERSION=`curl -s https://api.github.com/repos/jackett/jackett/releases/latest |grep -w "\"name\":" | cut -d '"' -f 4 |head -1` && curl -sL https://github.com/jackett/jackett/releas$
+    mkdir -p /opt/jackett && curl -sL https://github.com/Jackett/Jackett/releases/download/v${JACKETT_VERSION}/Jackett.Binaries.Mono.tar.gz | tar xz -C /opt/jackett --strip-components=1 && \
     mkdir -p /config && \
     chown -R jackett:jackett /config /opt/jackett && \
     ln -s /config /opt/jackett && \
@@ -14,8 +18,13 @@ EXPOSE 9117
 
 WORKDIR /opt/jacket
 
-USER jackett 
 
 VOLUME '/config'
+
+LABEL url=https://api.github.com/repos/Jackett/Jackett/releases/latest
+LABEL name=Jackett
+LABEL version=${JACKETT_VERSION}
+
+USER ${USER}
 
 ENTRYPOINT ["mono", "JackettConsole.exe"]

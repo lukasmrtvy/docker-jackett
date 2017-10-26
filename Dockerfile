@@ -17,7 +17,7 @@ EXPOSE 9117
 
 WORKDIR /opt/
 
-VOLUME '/config/jackett'
+VOLUME /config/jackett
 
 LABEL url=https://api.github.com/repos/Jackett/Jackett/releases/latest
 LABEL version=${JACKETT_VERSION}

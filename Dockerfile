@@ -9,9 +9,10 @@ ENV JACKETT_VERSION 0.8.225
 
 RUN addgroup -S ${GROUP} -g ${GID} && adduser -D -S -u ${UID} ${USER} ${GROUP}  && \
     apk add --no-cache --update curl openssl ca-certificates libcurl tar bzip2 mono --update-cache --repository http://alpine.gliderlabs.com/alpine/edge/testing/ --allow-untrusted  && \
+    update-ca-certificates && \
     mkdir -p /opt/jackett && curl -sL https://github.com/Jackett/Jackett/releases/download/v${JACKETT_VERSION}/Jackett.Binaries.Mono.tar.gz | tar xz -C /opt/jackett --strip-components=1 && \
     mkdir -p /config/ && ln -sf /home/${USER}/.config/Jackett/ /config/ && \
-    chown -R ${USER}:${GROUP} /config /opt/jackett
+    chown -R ${USER}:${GROUP} /config /opt/jackett 
    
 EXPOSE 9117 
 

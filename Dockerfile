@@ -14,7 +14,7 @@ RUN addgroup -S ${GROUP} -g ${GID} && adduser -D -S -u ${UID} ${USER} ${GROUP}  
   #  update-ca-certificates && \
     curl -ssL https://curl.haxx.se/ca/cacert.pem | cert-sync /dev/stdin && \
     mkdir -p /opt/jackett /config/Jackett && curl -sL https://github.com/Jackett/Jackett/releases/download/v${JACKETT_VERSION}/Jackett.Binaries.Mono.tar.gz | tar xz -C /opt/jackett --strip-components=1 && \
-    chown -R ${USER}:${GROUP} /config/ /opt/jackett/
+    chown -R ${USER}:${GROUP} /config/ /opt/jackett/ && \
     apk del curl
    
 EXPOSE 9117 

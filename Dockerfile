@@ -22,7 +22,7 @@ WORKDIR /opt/
 
 VOLUME /config/Jackett
 
-LABEL url=https://api.github.com/repos/Jackett/Jackett/releases/latest
+LABEL url=https://github.com/Jackett/Jackett/
 LABEL version=${JACKETT_VERSION}
 
 USER ${USER}
